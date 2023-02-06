@@ -27,7 +27,7 @@ if (folderPath):
         print(file_type)
 
         if (file_type == "application/vnd.ms-excel" or file_type == "text/plain"):
-            df = pd.read_csv(file_path)
+            df = pd.read_csv(file_path)         ## reads only UTF-8 excoded files
         elif (file_type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"):
             df = pd.read_excel(file_path)
         else:
