@@ -19,7 +19,7 @@ class CreateTables:
             for name, dtype in df.dtypes.items():
                 # print(dtype)
                 ColNames = ColNames + name + ","
-            # print(ColNames[:-1])
+            #print(ColNames[:-1])
 
             SQL = " IF OBJECT_ID(N'" + file_Name + "') IS NOT NULL \n" \
                                                    " BEGIN\n" \
