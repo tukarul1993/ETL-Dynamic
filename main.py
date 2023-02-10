@@ -46,24 +46,36 @@ def contents_to_dataframe(contents, separator=','):
 
 """ Main program starts here """
 if (folderPath):
-    files = [f for f in os.listdir(folderPath)
-             if os.path.isfile(os.path.join(folderPath, f))]
+    try:
+        files = [f for f in os.listdir(folderPath)
+                 if os.path.isfile(os.path.join(folderPath, f))]
 
-    for file in files:
-        #print(file)
-        file_path = os.path.join(folderPath, file)
-        file_type = mimetypes.guess_type(file_path)[0]
-        print(file_path)
-        print(file_type)
+        if(files):
+            for file in files:
+                # print(file)
+                file_path = os.path.join(folderPath, file)
+                file_type = mimetypes.guess_type(file_path)[0]
 
-        if (file_type == "application/vnd.ms-excel" or file_type == "text/plain"):
-            encoding = get_encoding(file_path)
-            contents = read_file(file_path, encoding)   ## Reads any encoding
-            df = contents_to_dataframe(contents)
-            #df = pd.read_csv(file_path)         ## reads only UTF-8 excoded files
-        elif (file_type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"):
-            df = pd.read_excel(file_path)
+                print(file_path)
+                print(file_type)
+
+                if (file_type == "application/vnd.ms-excel" or file_type == "text/plain"):
+                    encoding = get_encoding(file_path)
+                    contents = read_file(file_path, encoding)  ## Reads any encoding
+                    df = contents_to_dataframe(contents)
+                    # df = pd.read_csv(file_path)         ## reads only UTF-8 excoded files
+                elif (file_type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"):
+                    df = pd.read_excel(file_path)
+                else:
+                    print("Unknow file format")
+
+                load_Data(df, file_path, file)
+
         else:
-            print("Unknow file format")
+            print("Folder path is invalid")
 
-        load_Data(df, file_path,file)
+    except:
+        print("Folder path is invalid")
+
+else:
+    print("Folder path is blank")
