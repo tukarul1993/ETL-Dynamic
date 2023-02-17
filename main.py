@@ -9,7 +9,7 @@ from Control import InsertData
 import codecs
 from io import StringIO
 
-folderPath='D:\Python\ETL_ImportMultipleDataFiles\Files'
+folderPath='D:\Python\ETL_Dynamic\Files'
 
 """ Function to load data into MSSQL from Dataframe """
 def load_Data(df, file_path,file):
