@@ -14,7 +14,7 @@ class InsertData:
             connection = SQLConnection.Connection.get_connection()
             # Insert data in tables
             columns = df.axes[1]
-            print(len(df.columns))
+            #print(len(df.columns))
             # print(df.axes[1])
             file_Name = file.replace(".", "_")
             query = "Insert into " + file_Name + "("
@@ -31,7 +31,9 @@ class InsertData:
                 cursor = connection.cursor()
                 # print(row[1:])
                 cursor.execute("INSERT INTO " + file_Name + "  VALUES (" + PlaceHolders[:-1] + ")", row[1:])
-            print("data inserted")
+                #print("################")
+                #print("INSERT INTO " + file_Name + "  VALUES (" + PlaceHolders[:-1] + ")", row[1:])
+                print("data inserted")
             connection.commit()
             connection.close()
         except:

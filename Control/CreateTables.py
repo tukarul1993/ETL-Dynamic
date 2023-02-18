@@ -13,13 +13,16 @@ class CreateTables:
             ColNames = ""
             connection = SQLConnection.Connection.get_connection()
             # print(connection)
+            print("file",file)
             file_Name = file.replace(".", "_")
             # print(file_Name )
 
             for name, dtype in df.dtypes.items():
                 # print(dtype)
                 ColNames = ColNames + name + ","
+            print("columns")
             #print(ColNames[:-1])
+            print("ColNames:", ColNames)
 
             SQL = " IF OBJECT_ID(N'" + file_Name + "') IS NOT NULL \n" \
                                                    " BEGIN\n" \

@@ -13,8 +13,9 @@ folderPath='D:\Python\ETL_Dynamic\Files'
 
 """ Function to load data into MSSQL from Dataframe """
 def load_Data(df, file_path,file):
+
     CreateTables.CreateTables.create_table(df, file_path,file)
-    InsertData.InsertData.insert_data(df, file_path,file)
+    InsertData.InsertData.insert_data(df, file_path,file)   #JSON insert error, data not being mapped properly with columns
 def get_encoding(file):
     with open(file, 'rb') as f:
         contents = f.read()
@@ -52,11 +53,11 @@ if (folderPath):
 
         if(files):
             for file in files:
-                # print(file)
+
                 file_path = os.path.join(folderPath, file)
                 file_type = mimetypes.guess_type(file_path)[0]
 
-                print(file_path)
+                #print(file_path)
                 print(file_type)
 
                 if (file_type == "application/vnd.ms-excel" or file_type == "text/plain"):
@@ -66,6 +67,11 @@ if (folderPath):
                     # df = pd.read_csv(file_path)         ## reads only UTF-8 excoded files
                 elif (file_type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"):
                     df = pd.read_excel(file_path)
+                elif(file_type=="application/json"):
+                    with open(file_path, 'r') as Datafile:
+                        data = Datafile.read()
+                        df = pd.read_json(data)
+                        print(df)
                 else:
                     print("Unknow file format")
 
